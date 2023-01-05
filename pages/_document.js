@@ -1,7 +1,7 @@
 import Document, { Html, Head, Main, NextScript } from 'next/document'
 
-const APP_NAME = 'next-pwa example'
-const APP_DESCRIPTION = 'Next-pwa example'
+const APP_NAME = 'Mood Tracker'
+const APP_DESCRIPTION = 'Track your moods'
 
 class _Document extends Document {
     static async getInitialProps(ctx) {
@@ -12,6 +12,7 @@ class _Document extends Document {
         return (
             <Html lang='en' dir='ltr'>
                 <Head>
+                    <title>{APP_NAME}</title>
                     <meta name='application-name' content={APP_NAME} />
                     <meta name='apple-mobile-web-app-capable' content='yes' />
                     <meta name='apple-mobile-web-app-status-bar-style' content='default' />
@@ -20,9 +21,6 @@ class _Document extends Document {
                     <meta name='format-detection' content='telephone=no' />
                     <meta name='mobile-web-app-capable' content='yes' />
                     <meta name='theme-color' content='#FFFFFF' />
-                    {/* TIP: set viewport head meta tag in _app.js, otherwise it will show a warning */}
-                    {/* <meta name='viewport' content='minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, viewport-fit=cover' /> */}
-
                     <link rel='apple-touch-icon' sizes='180x180' href='/icons/apple-touch-icon.png' />
                     <link rel='manifest' href='/manifest.json' />
                     <link rel='shortcut icon' href='/favicon.ico' />
