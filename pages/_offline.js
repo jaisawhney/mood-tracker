@@ -1,9 +1,9 @@
-import Prompt from '../components/Prompt';
+
 
 export default function Home() {
     return (
         <div>
-            <Prompt/>
+            <h1>Offline :(</h1>
         </div>
-    );
+    )
 }
