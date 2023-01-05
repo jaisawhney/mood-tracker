@@ -8,18 +8,18 @@ datasource db {
 }
 
 enum Mood {
-  HAPPY
-  SMILE
+  GREAT
+  GOOD
   NEUTRAL
-  FROWN
-  ANGRY
+  BAD
+  SAD
 }
 
 model User {
   id           String     @id @default(uuid())
   email        String     @unique @db.VarChar(70)
   name         String     @db.VarChar(50)
-  password     String
+  password     String?
   trackedDays  Day[]
 }
 
