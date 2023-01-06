@@ -1,8 +1,8 @@
+import classNames from 'classnames';
 import Prompt from '../components/Prompt';
-
-export default function Home() {
+export default function Index() {
     return (
-        <div>
+        <div className={classNames('')}>
             <Prompt/>
         </div>
     );

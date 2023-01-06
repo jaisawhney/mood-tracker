@@ -7,7 +7,7 @@ export default function Journal() {
 
     async function fetchEntries() {
         // Placeholder route
-        const entries = await fetch(`/api/entries`).then((res) => res.json());
+        const entries = await fetch('/api/entries').then((res) => res.json());
         setEntries(entries);
     }
 
@@ -21,23 +21,30 @@ export default function Journal() {
         const groupedEntries = {};
         entries.forEach(e => {
             const d = new Date(e.createdAt);
+            const year = d.getFullYear();
             const month = d.toLocaleString('en-US', { month: 'long' });
-            if (!groupedEntries[month]) groupedEntries[month] = [];
-            groupedEntries[month].push(e);
+
+            const key = `${month}_${year}`;
+            if (!groupedEntries[key]) groupedEntries[key] = [];
+            groupedEntries[key].push(e);
         });
         setMonths(Object.entries(groupedEntries));
     }, [entries]);
 
     return (
         <div className={classNames('m-auto', 'xl:w-10/12 2xl:w-6/12')}>
-            {months.map(([month, entries]) => (
-                <div key={month}>
-                    <div className={classNames('m-4 py-1')}>
-                        <h1 className={classNames('font-medium text-xl text-blue-700')}>{month}</h1>
+            <h1 className={classNames('font-semibold text-3xl text-gray-700 m-4')}>Your Journal</h1>
+            {months.map(([key, entries]) => {
+                const [month, year] = key.split('_');
+                return (
+                    <div key={key}>
+                        <div className={classNames('m-4')}>
+                            <h1 className={classNames('font-medium text-xl text-blue-600')}>{month} {year}</h1>
+                        </div>
+                        {entries.map(entry => <Entry key={entry.id} entry={entry} />)}
                     </div>
-                    {entries.map(entry => <Entry key={entry.id} entry={entry} />)}
-                </div>
-            ))}
+                );
+            })}
         </div>
     );
 }

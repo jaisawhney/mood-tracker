@@ -1,22 +1,26 @@
-import prisma from "/lib/prisma"
+import prisma from '/lib/prisma';
 
 export default async function handler(req, res) {
-    if (req.method === "GET") {
-        const user = await prisma.entry.findMany();
+    if (req.method === 'GET') {
+        const user = await prisma.entry.findMany({
+            orderBy: {
+                createdAt: 'desc'
+            },
+        });
 
         res.status(200).json(user);
-    } else if (req.method === "POST") {
+    } else if (req.method === 'POST') {
         const user = await prisma.entry.create({
             data: {
                 user: {
                     connect: {
-                        id: req.body.userId
-                    }
+                        id: req.body.userId,
+                    },
                 },
                 mood: req.body.mood,
-                note: req.body.note
+                note: req.body.note,
             },
         });
-        return res.json(user)
+        return res.json(user);
     }
 }
