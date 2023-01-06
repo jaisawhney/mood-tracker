@@ -10,7 +10,7 @@ class _Document extends Document {
 
     render() {
         return (
-            <Html lang='en' dir='ltr'>
+            <Html lang='en'>
                 <Head>
                     <meta name='application-name' content={APP_NAME} />
                     <meta name='apple-mobile-web-app-capable' content='yes' />
