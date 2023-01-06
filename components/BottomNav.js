@@ -1,9 +1,9 @@
 import classNames from 'classnames';
 import Calendar from './icons/Calendar';
 import Journal from './icons/Journal';
-import Settings from './icons/Settings';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import BarChart from './icons/BarChart';
 
 export default function BottomNav() {
     const router = useRouter();
@@ -14,21 +14,21 @@ export default function BottomNav() {
                 <div className={classNames('flex justify-center w-full')}>
                     <Link href={'/'}>
                         <Calendar
-                            className={classNames(router.pathname === '/' ? 'fill-blue-500' : '', 'fill-gray-500', 'md:hover:fill-blue-400')}
+                            className={classNames(router.pathname === '/' ? 'fill-blue-500' : 'fill-gray-500', 'xl:hover:fill-blue-400')}
                             size={30} />
                     </Link>
                 </div>
                 <div className={classNames('flex justify-center w-full')}>
                     <Link href={'/journal'}>
                         <Journal
-                            className={classNames(router.pathname === '/journal' ? 'fill-blue-500' : '', 'fill-gray-500', 'md:hover:fill-blue-400')}
+                            className={classNames(router.pathname === '/journal' ? 'fill-blue-500' : 'fill-gray-500', 'xl:hover:fill-blue-400')}
                             size={30} />
                     </Link>
                 </div>
                 <div className={classNames('flex justify-center w-full')}>
-                    <Link href={'/settings'}>
-                        <Settings
-                            className={classNames(router.pathname === '/settings' ? 'fill-blue-500' : '', 'fill-gray-500', 'md:hover:fill-blue-400')}
+                    <Link href={'/statistics'}>
+                        <BarChart
+                            className={classNames(router.pathname === '/statistics' ? 'fill-blue-500' : 'fill-gray-500', 'xl:hover:fill-blue-400')}
                             size={30} />
                     </Link>
                 </div>
