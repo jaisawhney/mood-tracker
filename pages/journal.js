@@ -38,9 +38,7 @@ export default function Journal() {
                 const [month, year] = key.split('_');
                 return (
                     <div key={key}>
-                        <div className={classNames('m-4')}>
-                            <h1 className={classNames('font-medium text-xl text-blue-600')}>{month} {year}</h1>
-                        </div>
+                        <h1 className={classNames('m-4 font-medium text-xl text-blue-600')}>{month} {year}</h1>
                         {entries.map(entry => <Entry key={entry.id} entry={entry} />)}
                     </div>
                 );
