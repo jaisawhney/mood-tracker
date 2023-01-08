@@ -14,7 +14,7 @@ export default function App({ Component, pageProps }) {
                 <title>Mood Tracker</title>
                 <meta name='viewport' content='width=device-width, initial-scale=1, minimum-scale=1' />
             </Head>
-            <main className={classNames(robotoFlex.className, 'bg-gray-100')}>
+            <main className={classNames(robotoFlex.className)}>
                 <Component {...pageProps} />
                 <BottomNav />
             </main>

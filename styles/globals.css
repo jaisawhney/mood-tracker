@@ -8,6 +8,10 @@ body {
     overflow-x: hidden;
 }
 
+body {
+    @apply bg-gray-100;
+}
+
 main {
     padding-bottom: 38px;
     overflow: auto;
