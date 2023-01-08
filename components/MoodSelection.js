@@ -16,7 +16,7 @@ export default function MoodSelection() {
         setSelectedMood(mood);
     }
 
-    function cancelSelection() {
+    function clearSelection() {
         setModalOpen(false);
         setSelectedMood(null);
     }
@@ -41,7 +41,7 @@ export default function MoodSelection() {
                 </button>
             </div>
             {modalOpen && (
-                <Prompt selectedMood={selectedMood} cancelSelection={cancelSelection} />
+                <Prompt selectedMood={selectedMood} clearSelection={clearSelection} />
             )}
         </>
     );

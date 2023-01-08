@@ -1,16 +1,20 @@
 import classNames from 'classnames';
+import TextareaAutosize from 'react-textarea-autosize';
+
+import Exit from './icons/Close';
 import EmojiGreat from './icons/emojis/EmojiGreat';
 import EmojiGood from './icons/emojis/EmojiGood';
 import EmojiNeutral from './icons/emojis/EmojiNeutral';
 import EmojiBad from './icons/emojis/EmojiBad';
 import EmojiSad from './icons/emojis/EmojiSad';
+import { useRouter } from 'next/router';
 
 const MOOD_STATES = {
-    GREAT: <EmojiGreat className={classNames('fill-white')} size={96} />,
-    GOOD: <EmojiGood className={classNames('fill-white')} size={96} />,
-    NEUTRAL: <EmojiNeutral className={classNames('fill-white')} size={96} />,
-    BAD: <EmojiBad className={classNames('fill-white')} size={96} />,
-    SAD: <EmojiSad className={classNames('fill-white')} size={96} />,
+    GREAT: <EmojiGreat className={classNames('fill-white m-4')} size={96} />,
+    GOOD: <EmojiGood className={classNames('fill-white m-4')} size={96} />,
+    NEUTRAL: <EmojiNeutral className={classNames('fill-white m-4')} size={96} />,
+    BAD: <EmojiBad className={classNames('fill-white m-4')} size={96} />,
+    SAD: <EmojiSad className={classNames('fill-white m-4')} size={96} />,
 };
 
 const MOOD_BACKGROUNDS = {
@@ -20,35 +24,47 @@ const MOOD_BACKGROUNDS = {
     BAD: 'bg-red-400',
     SAD: 'bg-sky-300',
 };
-export default function Prompt({ selectedMood, cancelSelection }) {
+
+export default function Prompt({ selectedMood, clearSelection }) {
+    const router = useRouter();
+
+    async function submitEntry(e) {
+        e.preventDefault();
+        if (!selectedMood) return;
+
+        const notes = e.target.elements?.notes?.value || null;
+        const res = await fetch('/api/entries',
+            {
+                method: 'POST',
+                body: JSON.stringify({
+                    mood: selectedMood,
+                    note: notes,
+                }),
+            });
+        if (res.ok) return router.push('/journal');
+        console.error('Error while submitting! ');
+    }
 
     return (
         <div
-            className={classNames(MOOD_BACKGROUNDS[selectedMood], 'flex flex-col items-center justify-center z-50 w-full h-full fixed top-0 left-0 text-white ')}>
-            <button className={classNames('border border-white px-4 py-1 rounded-lg')}
-                    onClick={cancelSelection}>Close
-            </button>
-            {MOOD_STATES[selectedMood]}
-            <textarea placeholder={'What\'s up?'}
-                      className={classNames('focus:outline-none p-1 rounded-lg resize-none placeholder-gray-500 font-light text-black text-sm')} />
+            className={classNames(MOOD_BACKGROUNDS[selectedMood], 'flex flex-col z-50 w-full h-full fixed top-0 left-0 text-white')}>
+            <button className={classNames('left-0 fixed m-4')} onClick={clearSelection}>
+                <Exit className={classNames('fill-white')} size={30} />
 
-            <div className={classNames('flex justify-between')}>
-                <button className={classNames('border border-white px-4 py-1 rounded-lg')}>Save</button>
-            </div>
+            </button>
+            <form onSubmit={submitEntry}
+                  className={classNames('m-auto flex flex-col items-center justify-center w-10/12 max-w-[500px]')}>
+                {MOOD_STATES[selectedMood]}
+
+                <TextareaAutosize
+                    name={'notes'}
+                    placeholder={'What\'s up?'}
+                    className={classNames('w-full min-h-[50px] mx-2 focus:outline-none p-1 rounded-lg resize-none placeholder-gray-400 font-light text-black text-sm')} />
+
+                <button type={'submit'}
+                        className={classNames('mt-4 border border-white px-4 py-1 rounded-lg w-full')}>Save
+                </button>
+            </form>
         </div>
     );
-    /* <div
-            className={classNames(MOOD_BACKGROUNDS[selectedMood], 'z-50 top-0 h-full w-full bg-white fixed flex flex-col items-center rounded-t-2xl')}>
-            <div className={classNames('')}>
-                <h1 className={classNames('text-2xl')}>How's your day going?</h1>
-            </div>
-            <div className={classNames('m-2 flex gap-4 justify-between')}>
-                {MOOD_STATES[selectedMood]}
-            </div>
-            <div className={classNames('flex justify-left')}><Pencil /> <p
-                className={classNames('text-gray-800')}>Notes</p></div>
-            <textarea
-                className={classNames('block text-sm text-gray-800 bg-gray-50 rounded-md border border-gray-300 p-2')} />
-            <button className={classNames('bg-red-500 py-2 px-4 text-white rounded')}>Submit</button>
-        </div> */
 }

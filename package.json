@@ -12,10 +12,13 @@
     "@next/font": "^13.1.1",
     "@prisma/client": "^4.8.0",
     "classnames": "^2.3.2",
+    "dayjs": "^1.11.7",
     "next": "13.1.1",
     "next-pwa": "^5.6.0",
+    "postcss-100vh-fix": "^1.0.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-textarea-autosize": "^8.4.0",
     "workbox-background-sync": "^6.5.4",
     "workbox-routing": "^6.5.4",
     "workbox-strategies": "^6.5.4"
