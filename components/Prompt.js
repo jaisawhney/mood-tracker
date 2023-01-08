@@ -48,9 +48,8 @@ export default function Prompt({ selectedMood, clearSelection }) {
     return (
         <div
             className={classNames(MOOD_BACKGROUNDS[selectedMood], 'flex flex-col z-50 w-full h-full fixed top-0 left-0 text-white')}>
-            <button className={classNames('left-0 fixed m-4')} onClick={clearSelection}>
+            <button className={classNames('left-0 fixed m-4 rounded-2xl')} onClick={clearSelection}>
                 <Exit className={classNames('fill-white')} size={30} />
-
             </button>
             <form onSubmit={submitEntry}
                   className={classNames('m-auto flex flex-col items-center justify-center w-10/12 max-w-[500px]')}>
