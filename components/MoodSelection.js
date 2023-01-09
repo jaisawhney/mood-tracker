@@ -23,7 +23,7 @@ export default function MoodSelection() {
 
     return (
         <>
-            <div className={classNames('p-4 flex justify-between')}>
+            <div className={classNames('w-full mx-auto p-3 flex justify-center gap-4')}>
                 <button className={'rounded-2xl'} data-mood={'GREAT'} onClick={displayModal}>
                     <EmojiGreat className={classNames('fill-green-400')} size={40} />
                 </button>
