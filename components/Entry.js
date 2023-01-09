@@ -15,7 +15,7 @@ const MOOD_STATES = {
 };
 export default function Entry({ entry }) {
     const date = dayjs(entry.createdAt);
-    const formattedDate = date.format('MMM d, h:m a');
+    const formattedDate = date.format('MMM D, h:m a');
 
     return (
         <div className={classNames('flex p-2 m-4 bg-white rounded-md shadow-sm')}>

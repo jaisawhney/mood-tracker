@@ -1,12 +1,24 @@
+import { useEffect, useState } from 'react';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
-import { useEffect, useState } from 'react';
+import CalendarDays from './CalendarDays';
+
 
 export default function Calendar() {
     const currentDate = dayjs();
-
     const daysInMonth = currentDate.daysInMonth();
+    const startOfMonth = currentDate.startOf('month');
+    const endOfMonth = currentDate.endOf('month');
+
     const [days, setDays] = useState([]);
+    const [entries, setEntries] = useState([]);
+
+    async function fetchEntries() {
+        const fetchedEntries = await fetch(
+            `/api/entries?from=${startOfMonth.toISOString()}&to=${endOfMonth.toISOString()}`,
+        ).then((res) => res.json());
+        setEntries(fetchedEntries.items);
+    }
 
     function getDates() {
         const datesArray = [];
@@ -18,6 +30,7 @@ export default function Calendar() {
     }
 
     useEffect(() => {
+        fetchEntries();
         getDates();
     }, []);
 
@@ -33,20 +46,7 @@ export default function Calendar() {
                 <span>S</span>
             </div>
             <div className={classNames('grid grid-cols-7 gap-4 text-sm')}>
-                {days.map((day, idx) => {
-                    const dayOfWeek = day.get('day');
-                    return (
-                        <div className={`text-center col-start-${dayOfWeek + 1}`} key={`${day}_${idx}`}>
-                                <span
-                                    className={classNames(day.date() === currentDate.date() ? 'bg-sky-200' : 'bg-gray-100',
-                                        'flex items-center justify-center h-8 w-8 rounded-full font-medium',
-                                        'xl:h-9 xl:w-9',
-                                    )}>
-                                    {day.date()}
-                                </span>
-                        </div>
-                    );
-                })}
+                <CalendarDays entries={entries} days={days} />
             </div>
         </div>
     );

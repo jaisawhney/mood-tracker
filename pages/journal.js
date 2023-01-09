@@ -11,7 +11,7 @@ export default function Journal() {
     async function fetchEntries() {
         // Placeholder route
         const entries = await fetch('/api/entries').then((res) => res.json());
-        setEntries(entries);
+        setEntries(entries.items);
     }
 
     useEffect(() => {
