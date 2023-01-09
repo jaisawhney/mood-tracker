@@ -28,8 +28,10 @@ export default async function handler(req, res) {
             }),
         ]);
 
-        const moods = mood_counts.reduce((acc, count) => {
-            acc[count.mood] = count._count;
+        const availableMoods = ['GREAT', 'GOOD', 'NEUTRAL', 'BAD', 'SAD'];
+        const moods = availableMoods.reduce((acc, mood) => {
+            const count = mood_counts.find(count => count.mood === mood);
+            acc[mood] = count?._count.mood || 0;
             return acc;
         }, {});
 
@@ -43,7 +45,7 @@ export default async function handler(req, res) {
             data: {
                 user: {
                     connect: {
-                        id: req.body.userId,
+                        id: process.env.USER_ID, // No auth implemented atm
                     },
                 },
                 mood: body.mood,

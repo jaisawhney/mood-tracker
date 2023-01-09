@@ -26,9 +26,9 @@ export default function BottomNav() {
                     </Link>
                 </div>
                 <div className={classNames('flex justify-center w-full')}>
-                    <Link href={'/statistics'}>
+                    <Link href={'/overview'}>
                         <BarChart
-                            className={classNames(router.pathname === '/statistics' ? 'fill-blue-500' : 'fill-gray-500', 'xl:hover:fill-blue-400')}
+                            className={classNames(router.pathname === '/overview' ? 'fill-blue-500' : 'fill-gray-500', 'xl:hover:fill-blue-400')}
                             size={30} />
                     </Link>
                 </div>
