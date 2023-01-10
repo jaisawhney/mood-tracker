@@ -51,7 +51,6 @@ export default function Overview() {
                     const [mood, count] = moodArray;
                     const totalCount = Object.values(moods).reduce((acc, val) => acc + val);
                     const percentOfTotal = Math.floor((count / totalCount) * 100);
-                    const width = `w-[${percentOfTotal}%]`;
 
                     return (
                         <div key={mood} className={classNames('flex p-2')}>
@@ -59,8 +58,8 @@ export default function Overview() {
                             <div className={classNames('w-full flex flex-col mx-2')}>
                                 <p className={classNames('text-sm text-gray-500')}>{percentOfTotal}%</p>
                                 <div className={classNames('rounded-full bg-gray-200 h-2')}>
-                                    <div
-                                        className={classNames(width ? width : 'w-0', 'rounded-full bg-blue-600 h-2')} />
+                                    <div style={{ width: `${percentOfTotal}%` }}
+                                         className={classNames('rounded-full bg-blue-600 h-2')} />
                                 </div>
                             </div>
                         </div>);
