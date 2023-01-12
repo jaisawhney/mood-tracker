@@ -6,6 +6,8 @@ import EmojiBad from '../components/icons/emojis/EmojiBad';
 import EmojiSad from '../components/icons/emojis/EmojiSad';
 import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
+import LeftArrow from '../components/icons/LeftArrow';
+import RightArrow from '../components/icons/RightArrow';
 
 export default function Overview() {
     const [date, setDate] = useState(dayjs().startOf('month'));
@@ -46,11 +48,15 @@ export default function Overview() {
         <div className={classNames('m-auto', 'max-w-[600px]')}>
             <h1 className={classNames('m-4 font-semibold text-3xl text-gray-700')}>Overview</h1>
             <div className={classNames('m-4 flex flex-col bg-white rounded-md shadow-sm')}>
-                <h2 className={classNames('mx-2 mt-2 text-lg text-blue-600')}>{date.format('MMMM YYYY')}</h2>
+                <div className={classNames('flex bg-white rounded-md shadow-sm items-center')}>
+                    <button onClick={reduceDate} className={classNames('fill-gray-600')}><LeftArrow /></button>
+                    <h2 className={classNames('text-lg text-blue-600')}>{date.format('MMMM YYYY')}</h2>
+                    <button onClick={advanceDate} className={classNames('fill-gray-600')}><RightArrow /></button>
+                </div>
                 {Object.entries(moods).map(moodArray => {
                     const [mood, count] = moodArray;
-                    const totalCount = Object.values(moods).reduce((acc, val) => acc + val);
-                    const percentOfTotal = Math.floor((count / totalCount) * 100);
+                    const totalCount = Object.values(moods).reduce((acc, val) => acc + val) || 0;
+                    const percentOfTotal = Math.round(((count / totalCount) * 100) * 100) / 100 || 0;
 
                     return (
                         <div key={mood} className={classNames('flex p-2')}>
